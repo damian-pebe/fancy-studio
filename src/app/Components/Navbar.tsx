@@ -5,7 +5,7 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-16 py-4 w-full font-careny bg-white/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-16 py-4 w-full font-careny backdrop-blur-xl">
       <a
         href="/"
         className="text-xl md:text-2xl tracking-wide hover:cursor-pointer"

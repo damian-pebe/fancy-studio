@@ -1,106 +1,45 @@
 "use client";
-import { StarIcon } from "lucide-react";
+import { ArrowUpRightIcon } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 export default function Hero() {
   return (
-    <div className="w-full max-w-7xl mx-auto px-10 py-8 text-center font-poppins gap-10 ">
-      <div className="inline-block bg-[#ffe6c4] text-base rounded-full px-4 py-2 mb-4 shadow hover:cursor-grab transform hover:-translate-y-1 duration-1000">
-        Google:
-        <span className="ml-1 text-black text-sm gap-x-5">
-          {Array.from({ length: 5 }, (_, i) => (
-            <StarIcon
-              key={i}
-              width={15}
-              height={15}
-              fill="black"
-              className="inline-block"
-            />
-          ))}
-        </span>
-        <span className="ml-2 font-semibold">(4.9)</span>
+    <div className="relative w-full h-screen overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-black">
+        <Image
+          src="/images/microblading.jpg"
+          alt="Background"
+          fill
+          className="object-cover opacity-90"
+        />
       </div>
+      <div className="relative z-10 flex flex-col h-full w-full py-20 px-16 justify-between text-center md:text-start text-white font-careny">
+        <p className="text-3xl md:text-5xl h-full tracking-wide">
+          Fancy<sup>®</sup>Microblading
+        </p>
+        <div className="flex justify-between items-center md:mb-10 md:ml-5">
+          <p className="text-5xl md:text-7xl tracking-wide w-full">
+            Arte en cada trazo, elegancia en tu rostro
+          </p>
+          <div className="w-[70%] flex flex-col justify-center items-start">
+            <p className="text-base md:text-lg tracking-wide w-full font-poppins mb-5">
+              Donde cada trazo revela tu esencia. Cejas y pestañas que realzan tu belleza natural
+            </p>
 
-      <h1 className="text-5xl font-bold mt-3 mb-4">Brewed to perfection</h1>
-      <p className="text-base text-gray-700 mb-8">
-        Your perfect spot for coffee, pastries, and more.
-      </p>
-
-      <SpotlightButton
-        className="custom-spotlight-card"
-        spotlightColor="rgba(255, 255, 255, 0.6)"
-      ></SpotlightButton>
+            <button
+              onClick={() => (window.location.href = "/contact")}
+              className="group flex items-center gap-2 border border-black/30 rounded-full ml-5 px-4 py-2 text-base font-xl transition hover:-translate-y-1 duration-1000"
+            >
+              CONTACTANOS{" "}
+              <ArrowUpRightIcon
+                size={32}
+                className="bg-white text-black rounded-full p-1 transition-all group-hover:-rotate-[360deg] duration-700"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-import { useRef, useState } from "react";
-
-interface Position {
-  x: number;
-  y: number;
-}
-
-interface SpotlightButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
-  spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`;
-}
-
-const SpotlightButton: React.FC<SpotlightButtonProps> = ({
-  className = "",
-  spotlightColor = "rgba(255, 255, 255, 0.25)",
-  ...props
-}) => {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
-  const [opacity, setOpacity] = useState<number>(0);
-
-  const handleMouseMove: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    if (!buttonRef.current || isFocused) return;
-
-    const rect = buttonRef.current.getBoundingClientRect();
-    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  const handleFocus = () => {
-    setIsFocused(true);
-    setOpacity(0.6);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    setOpacity(0);
-  };
-
-  const handleMouseEnter = () => {
-    setOpacity(0.6);
-  };
-
-  const handleMouseLeave = () => {
-    setOpacity(0);
-  };
-
-  return (
-    <button
-      ref={buttonRef}
-      onMouseMove={handleMouseMove}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={`text-xl font-careny shadow-2xl shadow-black/40 hover:shadow-black/70 relative rounded-full bg-black text-white font-semibold py-5 px-10 transition-all transform hover:-translate-y-2 duration-1000 hover:tracking-widest ${className}`}
-      {...props}
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out rounded-full"
-        style={{
-          opacity,
-          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`,
-        }}
-      />
-      Explore menu
-    </button>
-  );
-};
