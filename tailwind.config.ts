@@ -25,7 +25,10 @@ export default {
   			],
   			ephesis: [
   				'var(--font-ephesis)'
-  			]
+  			],
+			birthstone: [
+				'var(--font-birthstone)'
+			]
   		},
   		colors: {
   			background: 'hsl(var(--background))',

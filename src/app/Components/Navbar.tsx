@@ -1,25 +1,55 @@
-'use client'
+"use client";
 
+import { ArrowUpRightIcon } from "lucide-react";
 import React from "react";
 
 export default function Navbar() {
   return (
-    <div className="flex items-center justify-between pt-1 px-1 md:px-10 w-full max-w-7xl z-50">
-      <h1 className="text-2xl font-bold font-plaster tracking-wider hover:cursor-pointer transition-all hover:tracking-widest duration-700">Latte Heaven</h1>
-      <div className="flex items-center justify-between  text-black font-plaster">
-        <button
-          onClick={() => {}}
-          className="flex justify-between items-center py-4 px-2 transform hover:-translate-y-1 duration-700 hover:cursor-pointer"
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-16 py-4 w-full font-careny bg-white/80 backdrop-blur-md">
+      <a
+        href="/"
+        className="text-xl md:text-2xl tracking-wide hover:cursor-pointer"
+      >
+        FANCY<sup>®</sup>
+      </a>
+
+      <div className="hidden md:flex gap-10 text-base md:text-lg text-black">
+        <a
+          href="/"
+          className="transition-all hover:-translate-y-1 duration-1000"
         >
-          Menu
-        </button>
-        <button
-          onClick={() => {}}
-          className="flex justify-between items-center py-4 px-2 transform hover:-translate-y-1 duration-700 hover:cursor-pointer"
+          HOME
+        </a>
+        <a
+          href="/projects"
+          className="transition-all hover:-translate-y-1 duration-1000"
         >
-          News
-        </button>
+          PROJECTS
+        </a>
+        <a
+          href="/about"
+          className="transition-all hover:-translate-y-1 duration-1000"
+        >
+          ABOUT
+        </a>
+        <a
+          href="/blog"
+          className="transition-all hover:-translate-y-1 duration-1000"
+        >
+          BLOG
+        </a>
       </div>
-    </div>
+
+      <button
+        onClick={() => (window.location.href = "/contact")}
+        className="group flex items-center gap-2 border border-black/30 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-1 duration-1000"
+      >
+        CONTACT{" "}
+        <ArrowUpRightIcon
+          size={32}
+          className="bg-black text-white rounded-full p-1 transition-all group-hover:-rotate-[360deg] duration-700"
+        />
+      </button>
+    </nav>
   );
 }

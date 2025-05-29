@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import {
+  Birthstone,
   Ephesis,
   Geist,
   Geist_Mono,
@@ -43,6 +44,12 @@ const ephesis = Ephesis({
   variable: '--font-ephesis',
 })
 
+const birthstone = Birthstone({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-birthstone',
+})
+
 export const metadata: Metadata = {
   title: "Fancyy Studio",
   description: "Donde tus cejas y pestañas encuentran la perfección",
@@ -56,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lobster.variable} ${poppins.variable} ${plaster.variable} ${ephesis.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lobster.variable} ${poppins.variable} ${plaster.variable} ${ephesis.variable} ${birthstone.variable} antialiased bg-[#FAFAFA]`}
       >
        {/* <div
   className="fixed inset-0 z-40 pointer-events-none"
