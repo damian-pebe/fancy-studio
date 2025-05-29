@@ -1,17 +1,18 @@
 "use client";
 
 import { ArrowUpRightIcon } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-16 py-4 w-full font-careny backdrop-blur-xl">
-      <a
+      <Link
         href="/"
         className="text-xl md:text-2xl tracking-wide hover:cursor-pointer"
       >
         FANCY<sup>®</sup>
-      </a>
+      </Link>
 
       <div className="hidden md:flex gap-10 text-base md:text-lg text-black">
         <a
