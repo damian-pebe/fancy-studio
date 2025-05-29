@@ -15,30 +15,30 @@ export default function Navbar() {
       </Link>
 
       <div className="hidden md:flex gap-10 text-base md:text-lg text-black">
-        <a
+        <Link
           href="/"
           className="transition-all hover:-translate-y-1 duration-1000"
         >
           HOME
-        </a>
-        <a
+        </Link>
+        <Link
           href="/projects"
           className="transition-all hover:-translate-y-1 duration-1000"
         >
           PROJECTS
-        </a>
-        <a
+        </Link>
+        <Link
           href="/about"
           className="transition-all hover:-translate-y-1 duration-1000"
         >
           ABOUT
-        </a>
-        <a
+        </Link>
+        <Link
           href="/blog"
           className="transition-all hover:-translate-y-1 duration-1000"
         >
           BLOG
-        </a>
+        </Link>
       </div>
 
       <button
