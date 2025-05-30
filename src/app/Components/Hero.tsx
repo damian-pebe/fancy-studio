@@ -11,7 +11,7 @@ export default function Hero() {
           src="/images/microblading.jpg"
           alt="Background"
           fill
-          className="object-cover opacity-90"
+          className="object-cover opacity-70"
         />
       </div>
       <div className="relative z-10 flex flex-col h-full w-full pt-10 pb-48 md:py-20 px-5 md:px-16 justify-between text-start text-white font-careny">
