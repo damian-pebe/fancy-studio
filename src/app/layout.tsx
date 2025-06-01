@@ -63,8 +63,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lobster.variable} ${poppins.variable} ${plaster.variable} ${ephesis.variable} ${birthstone.variable} antialiased bg-[#FAFAFA]`}
-      >
+        className={`
+          ${geistSans.variable} ${geistMono.variable} ${lobster.variable} ${poppins.variable} ${plaster.variable} ${ephesis.variable} ${birthstone.variable}
+          antialiased bg-[#FAFAFA]`}
+          >
        {/* <div
   className="fixed inset-0 z-40 pointer-events-none"
 >
