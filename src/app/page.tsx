@@ -4,6 +4,7 @@ import Hero from "./Components/Hero";
 import ShowcaseSection from "./Components/Showcase";
 import Works from "./Components/Works";
 import Testimonials from "./Components/Testimonials";
+import Footer from "./Components/Footer";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <ShowcaseSection />
       <Works/>
       <Testimonials/>
+      <Footer/>
     </div>
   );
 }
