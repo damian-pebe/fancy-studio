@@ -33,12 +33,7 @@ export default function Navbar() {
         >
           ABOUT
         </Link>
-        <Link
-          href="/blog"
-          className="transition-all hover:-translate-y-1 duration-1000"
-        >
-          BLOG
-        </Link>
+      
       </div>
 
       <button

@@ -29,9 +29,7 @@ export default function Footer() {
         <div className="space-y-2 flex flex-col gap-2">
           <p className="text-gray-400">Follow us</p>
           <Link href="https://www.tiktok.com" className="hover:opacity-60 duration-700 transition-all">TikTok</Link>
-          <Link href="https://www.twitter.com" className="hover:opacity-60 duration-700 transition-all">X</Link>
           <Link href="https://www.instagram.com" className="hover:opacity-60 duration-700 transition-all">Instagram</Link>
-          <Link href="https://www.linkedin.com" className="hover:opacity-60 duration-700 transition-all">LinkedIn</Link>
           <Link href="https://www.facebook.com" className="hover:opacity-60 duration-700 transition-all">Facebook</Link>
         </div>
 
@@ -39,8 +37,6 @@ export default function Footer() {
           <p className="text-gray-400">Menu</p>
           <Link href="/" className="hover:opacity-60 duration-700 transition-all">Home</Link>
           <Link href="/projects" className="hover:opacity-60 duration-700 transition-all">Projects</Link>
-          <Link href="/about" className="hover:opacity-60 duration-700 transition-all">About</Link>
-          <Link href="/blog" className="hover:opacity-60 duration-700 transition-all">Blog</Link>
           <Link href="/contact" className="hover:opacity-60 duration-700 transition-all">Contact</Link>
         </div>
       </div>
