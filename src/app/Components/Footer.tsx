@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { ArrowUpRightIcon } from "lucide-react";
+import { facebook, instagram, tiktok } from "@/Environment/SocialsLinks";
 
 export default function Footer() {
   return (
     <footer className="bg-[#fefcf9] text-[#121212] font-poppins ">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 px-8 py-20 pt-20 text-sm">
         <div className="space-y-4">
-          <p className="text-gray-400">Get In Touch</p>
+          <p className="text-gray-600">Conozcanos</p>
           <div className="flex items-center gap-1">
             <div className="group flex items-center border border-black/10 hover:cursor-pointer rounded-full p-2 transition-transform duration-500 hover:-translate-y-1">
               <ArrowUpRightIcon
@@ -20,24 +21,60 @@ export default function Footer() {
         </div>
 
         <div className="space-y-2 flex flex-col gap-2">
-          <p className="text-gray-400">Our Address</p>
+          <p className="text-gray-600">Nos Encontramos</p>
           <p>Fancy Studio</p>
           <p>Guadalajara, Jalisco</p>
           <p>México</p>
         </div>
 
         <div className="space-y-2 flex flex-col gap-2">
-          <p className="text-gray-400">Follow us</p>
-          <Link href="https://www.tiktok.com" className="hover:opacity-60 duration-700 transition-all">TikTok</Link>
-          <Link href="https://www.instagram.com" className="hover:opacity-60 duration-700 transition-all">Instagram</Link>
-          <Link href="https://www.facebook.com" className="hover:opacity-60 duration-700 transition-all">Facebook</Link>
+          <p className="text-gray-600">Redes Sociales</p>
+          <Link
+            href={tiktok}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            TikTok
+          </Link>
+          <Link
+            href={instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            Instagram
+          </Link>
+          <Link
+            href={facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            Facebook
+          </Link>
         </div>
 
         <div className="space-y-2 flex flex-col gap-2">
-          <p className="text-gray-400">Menu</p>
-          <Link href="/" className="hover:opacity-60 duration-700 transition-all">Home</Link>
-          <Link href="/projects" className="hover:opacity-60 duration-700 transition-all">Projects</Link>
-          <Link href="/contact" className="hover:opacity-60 duration-700 transition-all">Contact</Link>
+          <p className="text-gray-600">Menu</p>
+          <Link
+            href="/nosotros"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            Nosotros
+          </Link>
+          <Link
+            href="/trabajos"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            Trabajos
+          </Link>
+          <Link
+            href="/contactanos"
+            className="hover:opacity-60 duration-700 transition-all"
+          >
+            Contactanos
+          </Link>
         </div>
       </div>
 
@@ -47,6 +84,3 @@ export default function Footer() {
     </footer>
   );
 }
-
-
-

@@ -62,7 +62,7 @@ export default function Testimonials() {
   return (
     <div className="flex flex-col items-center justify-between h-full w-full bg-[#fefcf9]">
       <p className="uppercase flex flex-row text-sm tracking-[0.2em] text-black mb-2">
-        ●<span className="ml-2 text-gray-500">Testimonial</span>
+        ●<span className="ml-2 text-gray-500">Testimonios</span>
       </p>
 
       <section className="bg-[#fefcf9] text-[#121212] py-16 px-6 w-full">
