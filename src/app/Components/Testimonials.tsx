@@ -22,7 +22,8 @@ const testimonials = [
   },
   {
     image: "/images/microblading_filter.png",
-    quote: "El servicio fue excelente y el resultado superó mis expectativas El servicio fue excelente y el resultado.",
+    quote:
+      "El servicio fue excelente y el resultado superó mis expectativas El servicio fue excelente y el resultado.",
     name: "Lucía R.",
     role: "Clienta feliz",
   },
@@ -66,7 +67,7 @@ export default function Testimonials() {
                 alt="Client testimonial"
                 width={500}
                 height={500}
-                className="rounded-sm object-cover w-full h-auto shadow-md"
+                className="rounded-sm object-cover w-full h-auto shadow-md hover:cursor-crosshair hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-2 transition-all duration-1000"
               />
             </motion.div>
           </AnimatePresence>
@@ -82,16 +83,18 @@ export default function Testimonials() {
             >
               <div className="flex justify-between items-start">
                 <Link
-        href="/"
-        className="text-xl md:text-2xl tracking-wide hover:cursor-pointer font-careny"
-      >
-        FANCY<sup>®</sup>
-      </Link>
+                  href="/"
+                  className="text-xl md:text-2xl tracking-wide hover:cursor-pointer font-careny"
+                >
+                  FANCY<sup>®</sup>
+                </Link>
                 <div className="text-sm text-right">
                   <span className="text-black flex flex-row mx-2 gap-2 items-center justify-between">
-                    {Array(5).fill(0).map((_, i) => (
-                        <Star key={i} fill="000000"/>
-                    ))}
+                    {Array(5)
+                      .fill(0)
+                      .map((_, i) => (
+                        <Star key={i} fill="000000" />
+                      ))}
                   </span>
                 </div>
               </div>

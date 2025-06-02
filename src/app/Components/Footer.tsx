@@ -4,10 +4,10 @@ import { ArrowUpRightIcon } from "lucide-react";
 export default function Footer() {
   return (
     <footer className="bg-[#fefcf9] text-[#121212] font-poppins ">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-20 pt-20 text-sm">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 px-8 py-20 pt-20 text-sm">
         <div className="space-y-4">
           <p className="text-gray-400">Get In Touch</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
             <div className="group flex items-center border border-black/10 hover:cursor-pointer rounded-full p-2 transition-transform duration-500 hover:-translate-y-1">
               <ArrowUpRightIcon
                 size={28}
