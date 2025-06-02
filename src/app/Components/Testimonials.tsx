@@ -7,25 +7,39 @@ import Link from "next/link";
 
 const testimonials = [
   {
-    image: "/images/microblading.jpg",
+    image: "/images/microblading6.jpg",
     quote:
-      "Desde que me realicé el microblading aquí, mi confianza ha aumentado muchísimo. ¡Los resultados son naturales y duraderos!",
-    name: "Fernanda M.",
-    role: "Clienta feliz",
+      "El resultado del microblading superó todas mis expectativas. Mi rostro luce más definido y natural.",
+    name: "Carolina S.",
+    role: "Cliente Satisfecha",
   },
   {
-    image: "/images/microblading2.jpg",
+    image: "/images/microblading7.jpg",
     quote:
-      "Me encantó el microshading, ahora no tengo que maquillarme las cejas todos los días.",
-    name: "Andrea P.",
-    role: "Clienta feliz",
+      "La atención profesional y el ambiente del estudio son excepcionales. Recomiendo totalmente sus servicios.",
+    name: "Isabella M.",
+    role: "Cliente Feliz",
   },
   {
-    image: "/images/microblading_filter.png",
+    image: "/images/microblading8.jpg",
     quote:
-      "El servicio fue excelente y el resultado superó mis expectativas El servicio fue excelente y el resultado.",
-    name: "Lucía R.",
-    role: "Clienta feliz",
+      "Gracias al microblading, mi rutina diaria es mucho más rápida. Los resultados son increíbles.",
+    name: "Valentina R.",
+    role: "Cliente Satisfecha",
+  },
+  {
+    image: "/images/microblading9.jpg",
+    quote:
+      "La precisión y el cuidado en cada detalle me impresionaron. Es una inversión que vale totalmente la pena.",
+    name: "Daniela G.",
+    role: "Cliente Feliz",
+  },
+  {
+    image: "/images/microblading10.jpg",
+    quote:
+      "Mi experiencia fue extraordinaria desde el inicio hasta el final. Los resultados son justo lo que buscaba.",
+    name: "Patricia L.",
+    role: "Cliente Satisfecha",
   },
 ];
 
@@ -60,15 +74,16 @@ export default function Testimonials() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
               transition={{ duration: 0.4 }}
-              className="w-full md:w-1/2"
+              className="w-full md:w-1/2 h-[450px]"
             >
-              <Image
-                src={testimonial.image}
-                alt="Client testimonial"
-                width={500}
-                height={500}
-                className="rounded-sm object-cover w-full h-auto shadow-md hover:cursor-crosshair hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-2 transition-all duration-1000"
-              />
+              <div className="relative w-full h-[450px]">
+                <Image
+                  src={testimonial.image}
+                  alt="Client testimonial"
+                  fill
+                  className="rounded-md object-cover shadow-md hover:cursor-crosshair hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-2 transition-all duration-1000"
+                />
+              </div>
             </motion.div>
           </AnimatePresence>
 

@@ -6,34 +6,50 @@ import { ArrowUpRight } from "lucide-react";
 const products = [
   {
     id: 1,
-    image: "/images/microblading_filter2.png",
-    title: "Lévrière Passion",
+    image: "/images/microblading5.jpg",
+    title: "Microblading ",
     description:
-      "Luxury cosmetics that redefine elegance, empowering women with timeless beauty and sophistication",
+      "Técnica semipermanente que simula pelos reales en las cejas usando una pluma con microagujas para dar forma y definición natural.",
     alt: "Lévrière Passion",
   },
   {
     id: 2,
-    image: "/images/microblading2.jpg",
-    title: "GiftGrove",
+    image: "/images/microblading4.jpg",
+    title: "Microshading ",
     description:
-      "Handcrafted gift packaging that transforms every unboxing into an experience",
+      "Método de sombreado semipermanente que crea un efecto de polvo suave en las cejas, ideal para lograr un look más maquillado y definido.",
     alt: "GiftGrove",
   },
   {
     id: 3,
-    image: "/images/microblading_filter.png",
-    title: "Lévrière Passion",
+    image: "/images/microblading2.jpg",
+    title: "Laminado",
     description:
-      "Luxury cosmetics that redefine elegance, empowering women with timeless beauty and sophistication",
+      "Tratamiento que alisa, peina y fija los vellos naturales de las cejas para darles una apariencia más uniforme, levantada y definida.",
     alt: "Lévrière Passion",
   },
   {
     id: 4,
-    image: "/images/microblading.jpg",
-    title: "GiftGrove",
+    image: "/images/eyelashLift.jpg",
+    title: "Lifting de Pestañas",
     description:
-      "Handcrafted gift packaging that transforms every unboxing into an experience",
+      "Procedimiento que riza y eleva las pestañas naturales desde la raíz, haciendo que se vean más largas y curvadas sin necesidad de extensiones.",
+    alt: "GiftGrove",
+  },
+  {
+    id: 5,
+    image: "/images/eyelashextensions.jpg",
+    title: "Extensiones",
+    description:
+      "Aplicación individual de fibras sintéticas sobre las pestañas naturales para lograr un look más voluminoso, largo y glamuroso.",
+    alt: "Lévrière Passion",
+  },
+  {
+    id: 6,
+    image: "/images/microblading_tint.jpg",
+    title: "Tinte",
+    description:
+      "Coloración semipermanente que intensifica el tono de las cejas o pestañas, aportando mayor definición y presencia sin maquillaje diario.",
     alt: "GiftGrove",
   },
 ];

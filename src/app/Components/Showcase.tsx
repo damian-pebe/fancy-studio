@@ -4,6 +4,7 @@ import React from "react";
 export default function ShowcaseSection() {
   return (
     <section className="h-full pt-60 w-full flex flex-col justify-center items-center text-center px-4 py-16 bg-[#fcfbf7] text-black font-poppins relative">
+
       <div className="absolute mb-10 justify-between items-center w-full">
         <div className="absolute left-4 -top-14 text-xl text-black/70">[01]</div>
         <div className="absolute right-4 -top-14 text-xl text-black/70">
