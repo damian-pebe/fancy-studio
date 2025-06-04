@@ -60,6 +60,10 @@ export default {
         },
       },
       keyframes: {
+        shine: {
+          "0%": { "background-position": "100%" },
+          "100%": { "background-position": "-100%" },
+        },
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
@@ -104,6 +108,7 @@ export default {
         },
       },
       animation: {
+        shine: "shine 5s linear infinite",
         fadeIn: "fadeIn 0.6s ease-out forwards",
         fadeInUp: "fadeInUp 0.6s ease-out forwards",
         fadeInDown: "fadeInDown 0.6s ease-out forwards",

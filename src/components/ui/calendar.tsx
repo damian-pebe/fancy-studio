@@ -18,7 +18,7 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("px-5 py-3 bg-zinc-950 text-white", className)}
+      className={cn("px-5 py-3 bg-zinc-950 text-white duration-1000 transition-all", className)}
       classNames={{
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -31,10 +31,10 @@ function Calendar({
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-y-1",
+        table: "w-full border-collapse space-y-1 mx-5 my-2",
         head_row: "flex",
         head_cell:
-          "text-zinc-400 rounded-md w-8 font-normal text-[0.8rem]",
+          "text-zinc-400 rounded-md w-8 font-normal text-[1rem]",
         row: "flex w-full mt-2",
         cell: cn(
           "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-zinc-800 [&:has([aria-selected].day-outside)]:bg-zinc-800/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
@@ -49,8 +49,8 @@ function Calendar({
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-[#FAFAFA] text-lg text-white hover:bg-zinc-600 hover:text-white focus:bg-[#FAFAFA] focus:text-black",
-        day_today: "bg-zinc-400 text-white",
+          "bg-[#FAFAFA] text-lg text-white hover:bg-zinc-600 hover:text-white focus:bg-[#FAFAFA] focus:text-black ",
+        day_today: "bg-zinc-800 text-white rounded-full",
         day_outside:
           "day-outside text-zinc-500 aria-selected:bg-zinc-800/50 aria-selected:text-zinc-400",
         day_disabled: "text-zinc-600 opacity-50",
