@@ -37,10 +37,10 @@ export default function Navbar() {
       </div>
 
       <button
-        onClick={() => (window.location.href = "/contactanos")}
-        className="group flex items-center gap-2 border border-black/30 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-1 duration-1000 animate-fadeInRight"
+        onClick={() => (window.location.href = "/agendar")}
+        className="tracking-widest group flex items-center gap-2 border border-black/30 rounded-full px-4 py-2 text-sm font-medium transition hover:-translate-y-1 duration-1000 animate-fadeInRight"
       >
-        CONTACTANOS{" "}
+        Agendar Cita{" "}
         <ArrowUpRightIcon
           size={32}
           className="bg-black text-white rounded-full p-1 transition-all group-hover:-rotate-[360deg] duration-700"
