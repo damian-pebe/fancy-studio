@@ -5,79 +5,123 @@ import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 import ShinyText from "./ShinyText";
 import dayjs, { Dayjs } from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+dayjs.extend(timezone);
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import {
-//   AlertDialog,
-//   AlertDialogAction,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
+import { TimePicker } from "antd";
+
+const format = "HH:mm";
 
 export default function Dates() {
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
 
   return (
     <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
-    <div className="flex flex-col text-center w-full">
+      <div className="flex flex-col text-center w-full">
+        <BlurText
+          text="Agendar Cita en Fancy Studio"
+          className="flex justify-center items-center text-5xl tracking-wide sm:text-4xl md:text-7xl font-careny text-white text-center w-full mb-4"
+        />
+      </div>
+
+      <div className="bg-white/50 rounded-lg">
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DateCalendar
+            value={date}
+            onChange={(date) => setDate(date)}
+            defaultValue={dayjs().add(1, "day")}
+            shouldDisableDate={(date) => {
+              return date.isBefore(dayjs());
+            }}
+          />
+        </LocalizationProvider>
+      </div>
+
       <BlurText
-        text="Agendar Cita en Fancy Studio"
-        className="flex justify-center items-center text-5xl tracking-wide sm:text-4xl md:text-7xl font-careny text-white text-center w-full mb-8"
+        text={date ? date.format("DD-MM-YYYY") : ""}
+        animateBy="letters"
+        delay={100}
+        className="flex justify-center items-center text-3xl tracking-widest font-birthstone text-white text-center w-full my-1"
       />
-    </div>
 
-    <BlurText
-      text={date?.toString() || ""}
-      animateBy="letters"
-      delay={100}
-      className="flex justify-center items-center text-2xl tracking-wide font-ephesis text-white text-center w-full my-2"
-    />
-<div className="bg-white/50 rounded-lg">
-
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateCalendar value={date} onChange={(date) => setDate(date)} defaultValue={dayjs('2022-04-17')} />
-    </LocalizationProvider>
-</div>
-
-      <button className="border border-white/60 hover:bg-[#222222aa] bg-[#1111113c] rounded-full px-8 p-4 transition-all duration-1000">
-
+      <AlertDialog>
+        <AlertDialogTrigger className="border border-white/60 bg-[#11111132] hover:bg-[#222222c6] rounded-full px-8 p-4 transition-all duration-1000">
           <ShinyText
             text="Confirmar Dia de Cita"
             disabled={false}
-            speed={3}
-            className="custom-class  tracking-widest font-plaster"
-            />
-            </button>
-
-      {/* <AlertDialog>
-        <AlertDialogTrigger >
+            speed={5}
+            className="custom-class  tracking-widest font-plaster text-white/60"
+          />
         </AlertDialogTrigger>
-        <AlertDialogContent>
+
+        <AlertDialogContent className="bg-[#000000b5] border border-black m-5">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
+            <AlertDialogTitle className="text-white font-careny text-center text-3xl ">
+              <p className="animate-flipInY transition-all duration-1000">
+                SELECCIONA LA HORA DE TU CITA <br />
+              </p>
+              <p className="font-poppins text-xl animate-rotateIn transition-all duration-1000">
+                Para el dia {date!.format("DD-MM-YYYY")}
+              </p>
+            </AlertDialogTitle>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <StaticTimePicker 
+                defaultValue={dayjs('2022-04-17T08:00').tz('America/Mexico_City')}
+                slots={{
+                  actionBar: () => null
+                }}
+                slotProps={{
+                  toolbar: {
+                    hidden: false, 
+                  }
+                }}
+                minutesStep={30}
+              />
+            </LocalizationProvider> */}
+            <div className="flex justify-center">
+              <TimePicker
+                className="w-20"
+                defaultValue={dayjs("8:00", format)}
+                format={format}
+                size="large"
+                minuteStep={30}
+                disabledTime={() => ({
+                  disabledHours: () => [
+                    ...Array(8).keys(),
+                    ...Array(16)
+                      .keys()
+                      .map((x) => x + 20),
+                  ],
+                  disabledMinutes: () => [],
+                })}
+              />
+            </div>{" "}
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogFooter className="font-poppins text-3xl">
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction>Agendar Cita</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog> */}
+      </AlertDialog>
     </div>
   );
 }
-
-
 
 type BlurTextProps = {
   text?: string;
