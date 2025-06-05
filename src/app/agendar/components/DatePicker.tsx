@@ -1,7 +1,19 @@
 "use client";
 
 import * as React from "react";
-
+import { motion, Transition } from "framer-motion";
+import { useEffect, useRef, useState, useMemo } from "react";
+// import {
+//   AlertDialog,
+//   AlertDialogAction,
+//   AlertDialogCancel,
+//   AlertDialogContent,
+//   AlertDialogDescription,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogTitle,
+//   AlertDialogTrigger,
+// } from "@/components/ui/alert-dialog";
 import ShinyText from "./ShinyText";
 
 export default function DatePicker() {
@@ -23,14 +35,18 @@ export default function DatePicker() {
         className="flex justify-center items-center text-2xl tracking-wide font-ephesis text-white text-center w-full my-2"
       />
 
-      <AlertDialog>
-        <AlertDialogTrigger className="border border-white/60 hover:bg-[#222222aa] bg-[#111111cb] rounded-full px-8 p-4 transition-all duration-1000">
+      <button className="border border-white/60 hover:bg-[#222222aa] bg-[#111111cb] rounded-full px-8 p-4 transition-all duration-1000">
+
           <ShinyText
             text="Confirmar Dia de Cita"
             disabled={false}
             speed={3}
             className="custom-class  tracking-widest font-plaster"
-          />
+            />
+            </button>
+
+      {/* <AlertDialog>
+        <AlertDialogTrigger >
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -45,24 +61,12 @@ export default function DatePicker() {
             <AlertDialogAction>Continue</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialog> */}
     </div>
   );
 }
 
-import { motion, Transition } from "framer-motion";
-import { useEffect, useRef, useState, useMemo } from "react";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+
 
 type BlurTextProps = {
   text?: string;
