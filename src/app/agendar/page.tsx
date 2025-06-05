@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Components/Navbar";
 import Image from "next/image";
 import Footer from "../Components/Footer";
-import DatePicker from "./components/DatePicker";
+import DatePicker from "./Components/DatePicker";
 
 export default function page() {
   return (
