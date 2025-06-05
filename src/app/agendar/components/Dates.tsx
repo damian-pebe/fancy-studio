@@ -18,7 +18,11 @@ import ShinyText from "./ShinyText";
 
 export default function Dates() {
   const [date, setDate] = React.useState<Date | null>(null);
-setDate(null) // test
+useEffect(() => {
+    if (date === null) {
+        setDate(new Date());
+    }
+}, [date]);
   return (
     <div className="w-full h-screen flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row">
       <div className="flex flex-col text-center w-full">
