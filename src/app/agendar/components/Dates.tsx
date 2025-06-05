@@ -26,10 +26,13 @@ import {
 
 import { TimePicker } from "antd";
 
-const format = "HH:mm";
 
 export default function Dates() {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
+  const format = "HH:mm";
+  const handleBooking = () => {
+    window.open('https://stripe-payment-method.com', '_blank')
+  }
 
   return (
     <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
@@ -61,7 +64,7 @@ export default function Dates() {
       />
 
       <AlertDialog>
-        <AlertDialogTrigger className="border border-white/60 bg-[#11111132] hover:bg-[#222222c6] rounded-full px-8 p-4 transition-all duration-1000">
+        <AlertDialogTrigger className="border border-white/60 hover:bg-[#11111132] bg-[#222222c6] rounded-full px-8 p-4 transition-all duration-1000">
           <ShinyText
             text="Confirmar Dia de Cita"
             disabled={false}
@@ -70,8 +73,8 @@ export default function Dates() {
           />
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-[#000000b5] border border-black m-5">
-          <AlertDialogHeader>
+        <AlertDialogContent className="bg-[#ffffff47] border border-white m-5">
+          <AlertDialogHeader className="pb-10 md:pb-3">
             <AlertDialogTitle className="text-white font-careny text-center text-3xl ">
               <p className="animate-flipInY transition-all duration-1000">
                 SELECCIONA LA HORA DE TU CITA <br />
@@ -115,7 +118,7 @@ export default function Dates() {
           </AlertDialogHeader>
           <AlertDialogFooter className="font-poppins text-3xl">
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction>Agendar Cita</AlertDialogAction>
+            <AlertDialogAction onClick={handleBooking}>Agendar Cita</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
