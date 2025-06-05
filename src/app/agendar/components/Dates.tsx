@@ -4,6 +4,7 @@ import * as React from "react";
 import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 import ShinyText from "./ShinyText";
+import test from "node:test";
 // import {
 //   AlertDialog,
 //   AlertDialogAction,
@@ -18,7 +19,7 @@ import ShinyText from "./ShinyText";
 
 export default function Dates() {
   const [date, setDate] = React.useState<Date | null>(null);
-
+setDate(null) // test
   return (
     <div className="w-full h-screen flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row">
       <div className="flex flex-col text-center w-full">
@@ -170,8 +171,8 @@ const BlurText: React.FC<BlurTextProps> = ({
           duration: totalDuration,
           times,
           delay: (index * delay) / 1000,
+          ease: easing,
         };
-        (spanTransition as any).ease = easing;
 
         return (
           <motion.span
