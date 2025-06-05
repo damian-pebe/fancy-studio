@@ -4,6 +4,10 @@ import * as React from "react";
 import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 import ShinyText from "./ShinyText";
+import dayjs, { Dayjs } from "dayjs";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import {
 //   AlertDialog,
 //   AlertDialogAction,
@@ -16,30 +20,33 @@ import ShinyText from "./ShinyText";
 //   AlertDialogTrigger,
 // } from "@/components/ui/alert-dialog";
 
+
 export default function Dates() {
-  const [date, setDate] = React.useState<Date | null>(null);
-useEffect(() => {
-    if (date === null) {
-        setDate(new Date());
-    }
-}, [date]);
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
+
   return (
-    <div className="w-full h-screen flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row">
-      <div className="flex flex-col text-center w-full">
-        <BlurText
-          text="Agendar Cita en Fancy Studio"
-          className="flex justify-center items-center text-5xl tracking-wide sm:text-4xl md:text-7xl font-careny text-white text-center w-full mb-8"
-        />
-      </div>
-
+    <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
+    <div className="flex flex-col text-center w-full">
       <BlurText
-        text={date?.toLocaleDateString() || ""}
-        animateBy="letters"
-        delay={100}
-        className="flex justify-center items-center text-2xl tracking-wide font-ephesis text-white text-center w-full my-2"
+        text="Agendar Cita en Fancy Studio"
+        className="flex justify-center items-center text-5xl tracking-wide sm:text-4xl md:text-7xl font-careny text-white text-center w-full mb-8"
       />
+    </div>
 
-      <button className="border border-white/60 hover:bg-[#222222aa] bg-[#111111cb] rounded-full px-8 p-4 transition-all duration-1000">
+    <BlurText
+      text={date?.toString() || ""}
+      animateBy="letters"
+      delay={100}
+      className="flex justify-center items-center text-2xl tracking-wide font-ephesis text-white text-center w-full my-2"
+    />
+<div className="bg-white/50 rounded-lg">
+
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateCalendar value={date} onChange={(date) => setDate(date)} defaultValue={dayjs('2022-04-17')} />
+    </LocalizationProvider>
+</div>
+
+      <button className="border border-white/60 hover:bg-[#222222aa] bg-[#1111113c] rounded-full px-8 p-4 transition-all duration-1000">
 
           <ShinyText
             text="Confirmar Dia de Cita"
