@@ -16,7 +16,7 @@ import { useEffect, useRef, useState, useMemo } from "react";
 // } from "@/components/ui/alert-dialog";
 import ShinyText from "./ShinyText";
 
-export default function DatePicker() {
+export default function Dates() {
   const [date, setDate] = React.useState<Date | null>(null);
 
   return (

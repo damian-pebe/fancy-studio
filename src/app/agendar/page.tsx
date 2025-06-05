@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Components/Navbar";
 import Image from "next/image";
 import Footer from "../Components/Footer";
-import DatePicker from "./Components/DatePicker";
+import Dates from "./Components/Dates";
 
 export default function page() {
   return (
@@ -25,7 +25,7 @@ function Hero() {
           className="object-cover opacity-50 animate-fadeInDown"
         />
       </div>
-      <DatePicker/>
+      <Dates/>
     </div>
   );
 }
