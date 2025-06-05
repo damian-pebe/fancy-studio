@@ -6,7 +6,7 @@ import { Calendar } from "@/components/ui/calendar";
 import ShinyText from "./ShinyText";
 
 export default function DatePicker() {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+  const [date, setDate] = React.useState<Date | undefined>();
 
   return (
     <div className="w-full h-screen flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row">
@@ -18,31 +18,55 @@ export default function DatePicker() {
       </div>
 
       <Calendar
+        fromDate={new Date(new Date().setDate(new Date().getDate() + 1))}
         mode="single"
         selected={date}
         onSelect={setDate}
         className="rounded-md border shadow-sm bg-black/30"
       />
       <BlurText
-        text={date?.toLocaleDateString() || ""}     animateBy="letters"     delay={100}
-
+        text={date?.toLocaleDateString() || ""}     
+        animateBy="letters"     
+        delay={100}
         className="flex justify-center items-center text-2xl tracking-wide font-ephesis text-white text-center w-full my-2"
       />
 
-      <button className="border border-white/60 hover:bg-[#222222aa] bg-[#111111cb] rounded-full px-8 p-4 transition-all duration-1000">
+      
+
+
+      <AlertDialog>
+  <AlertDialogTrigger className="border border-white/60 hover:bg-[#222222aa] bg-[#111111cb] rounded-full px-8 p-4 transition-all duration-1000">
+
         <ShinyText
           text="Confirmar Dia de Cita"
           disabled={false}
           speed={3}
           className="custom-class  tracking-widest font-plaster"
         />
-      </button>
+
+
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Continue</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
     </div>
   );
 }
 
 import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 
 type BlurTextProps = {
   text?: string;
