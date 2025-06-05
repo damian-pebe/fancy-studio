@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../Components/Navbar";
 import Image from "next/image";
 import Footer from "../Components/Footer";
-import Dates from "./Components/Dates";
+import Dates from "./components/Dates";
 
 export default function page() {
   return (

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion, Transition } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
+import ShinyText from "./ShinyText";
 // import {
 //   AlertDialog,
 //   AlertDialogAction,
@@ -14,7 +15,6 @@ import { useEffect, useRef, useState, useMemo } from "react";
 //   AlertDialogTitle,
 //   AlertDialogTrigger,
 // } from "@/components/ui/alert-dialog";
-import ShinyText from "./ShinyText";
 
 export default function Dates() {
   const [date, setDate] = React.useState<Date | null>(null);
