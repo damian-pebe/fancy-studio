@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@date-io/dayjs": "^3.2.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.1",
+    "@mui/system": "^7.1.1",
+    "@mui/x-date-pickers": "^8.5.0",
     "@radix-ui/react-alert-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "bootstrap-icons": "^1.13.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^12.12.2",
     "lucide-react": "^0.511.0",
     "motion": "^12.15.0",
