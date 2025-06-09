@@ -58,7 +58,7 @@ export default function Footer() {
         <div className="space-y-2 flex flex-col gap-2">
           <p className="text-gray-600">Menu</p>
           <Link
-            href="/nosotros"
+            href="/fancy"
             className="hover:opacity-60 duration-700 transition-all"
           >
             Nosotros

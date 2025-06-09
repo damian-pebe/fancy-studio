@@ -16,7 +16,7 @@ export default function Navbar() {
 
       <div className="hidden md:flex gap-10 text-base md:text-lg text-black animate-flipInY">
         <Link
-          href="/nosotros"
+          href="/fancy"
           className="transition-all hover:-translate-y-1 duration-1000"
         >
           NOSOTROS
