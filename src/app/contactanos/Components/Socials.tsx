@@ -1,21 +1,41 @@
-import { facebook, instagram, tiktok, whatsapp } from "@/Environment/SocialsLinks";
+import {
+  facebook,
+  instagram,
+  tiktok,
+  whatsapp,
+} from "@/Environment/SocialsLinks";
 import Link from "next/link";
 import React from "react";
 import { Whatsapp, Facebook, Instagram, Tiktok } from "react-bootstrap-icons";
 export default function Socials() {
   const items = [
-    { icon: <Whatsapp />, color: "whatsapp", label: "WhatsApp", link: whatsapp },
-    { icon: <Facebook />, color: "facebook", label: "Facebook", link: facebook },
-    { icon: <Instagram />, color: "instagram", label: "Instagram", link: instagram },
+    {
+      icon: <Whatsapp />,
+      color: "whatsapp",
+      label: "WhatsApp",
+      link: whatsapp,
+    },
+    {
+      icon: <Facebook />,
+      color: "facebook",
+      label: "Facebook",
+      link: facebook,
+    },
+    {
+      icon: <Instagram />,
+      color: "instagram",
+      label: "Instagram",
+      link: instagram,
+    },
     { icon: <Tiktok />, color: "tiktok", label: "Tiktok", link: tiktok },
   ];
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center max-w-5xl w-full h-full">
-      <div className="w-full text-center justify-center items-center px-10 uppercase flex flex-row text-sm text-white mb-2 md:w-min md:text-start">
+    <div className="flex flex-col justify-between items-center max-w-5xl w-full h-full">
+      {/* <div className="w-full text-center justify-center items-center px-10 uppercase flex flex-row text-sm text-white mb-2 md:w-min md:text-start">
         <span className="mr-2">●</span>
-        <div className="text-white">Redes Sociales</div>
-      </div>
+        <div className="text-white w-full">Redes Sociales</div>
+      </div> */}
       <div className="relative h-full w-full">
         <GlassIcons items={items} className="custom-class" />
       </div>
@@ -54,16 +74,17 @@ const GlassIcons: React.FC<GlassIconsProps> = ({ items, className }) => {
 
   return (
     <div
-      className={`gap-x-40 gap-y-20 flex flex-wrap justify-center items-center px-5 overflow-visible isolate ${
+      className={`w-full gap-x-10 gap-y-20 flex flex-wrap justify-center items-center px-16 md:pl-[32rem] overflow-visible isolate ${
         className || ""
       }`}
     >
       {items.map((item, index) => (
         <Link
           key={index}
-href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"          aria-label={item.label}
+          href={item.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={item.label}
           className={`relative bg-transparent outline-none w-[4.5em] h-[4.5em] [perspective:24em] [transform-style:preserve-3d] [-webkit-tap-highlight-color:transparent] group/item ${
             item.customClass || ""
           }`}
