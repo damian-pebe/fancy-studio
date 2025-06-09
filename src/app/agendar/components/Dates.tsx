@@ -12,7 +12,6 @@ dayjs.extend(timezone);
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { StaticTimePicker } from "@mui/x-date-pickers/StaticTimePicker";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,16 +22,41 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
 import { TimePicker } from "antd";
-
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { BASE_URL } from "@/Environment/urls";
 
 export default function Dates() {
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
   const format = "HH:mm";
-  const handleBooking = () => {
-    window.open('https://stripe-payment-method.com', '_blank')
-  }
+
+  const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
+  const [selectedTime, setSelectedTime] = React.useState<dayjs.Dayjs>(dayjs("08:00", "HH:mm"));
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const handleBooking = async () => {
+    const safeData = 
+    {
+      amount: 100,
+      currency: "MXN",
+      status: "pending",
+      phone: phone,
+      email: email,
+      selected_day: date,
+      selected_time: selectedTime,
+    };
+    const response = await fetch(`${BASE_URL}/checkout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(safeData)
+    });
+    const data = await response.json();
+    // console.log(data.url)
+    window.open(data.url, "_blank");
+  };
 
   return (
     <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
@@ -79,46 +103,59 @@ export default function Dates() {
               <p className="animate-flipInY transition-all duration-1000">
                 SELECCIONA LA HORA DE TU CITA <br />
               </p>
-              <p className="font-poppins text-xl animate-rotateIn transition-all duration-1000">
+              <p className="font-birthstone tracking-widest font-light text-2xl animate-rotateIn transition-all duration-1000">
                 Para el dia {date!.format("DD-MM-YYYY")}
               </p>
             </AlertDialogTitle>
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <StaticTimePicker 
-                defaultValue={dayjs('2022-04-17T08:00').tz('America/Mexico_City')}
-                slots={{
-                  actionBar: () => null
-                }}
-                slotProps={{
-                  toolbar: {
-                    hidden: false, 
-                  }
-                }}
-                minutesStep={30}
+
+            <div className="flex flex-col justify-center items-center gap-3">
+              <div className="text-white grid w-full max-w-sm items-center gap-3">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                id="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
-            </LocalizationProvider> */}
-            <div className="flex justify-center">
+              </div>
+              <div className="text-white grid w-full max-w-sm items-center gap-3">
+              <Label htmlFor="telefono">Telefono</Label>
+              <Input
+                type="tel"
+                id="telefono"
+                placeholder="Telefono"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+              </div>
               <TimePicker
-                className="w-20"
-                defaultValue={dayjs("8:00", format)}
-                format={format}
-                size="large"
-                minuteStep={30}
-                disabledTime={() => ({
-                  disabledHours: () => [
-                    ...Array(8).keys(),
-                    ...Array(16)
-                      .keys()
-                      .map((x) => x + 20),
-                  ],
-                  disabledMinutes: () => [],
-                })}
+              className="w-20"
+              defaultValue={dayjs("8:00", format)}
+              format={format}
+              size="large"
+              minuteStep={30}
+              value={selectedTime}
+              onChange={(time) => setSelectedTime(time)}
+              disabledTime={() => ({
+                disabledHours: () => [
+                ...Array(8).keys(),
+                ...Array(16)
+                  .keys()
+                  .map((x) => x + 20),
+                ],
+                disabledMinutes: () => [],
+              })}
               />
-            </div>{" "}
+            </div>
           </AlertDialogHeader>
           <AlertDialogFooter className="font-poppins text-3xl">
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleBooking}>Agendar Cita</AlertDialogAction>
+            <AlertDialogAction onClick={handleBooking}>
+              Agendar Cita
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
