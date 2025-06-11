@@ -51,7 +51,7 @@ const birthstone = Birthstone({
 })
 
 export const metadata: Metadata = {
-  title: "Fancyy Studio",
+  title: "Fancy Studio",
   description: "Donde tus cejas y pestañas encuentran la perfección",
 };
 
