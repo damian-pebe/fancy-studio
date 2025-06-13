@@ -12,6 +12,7 @@ dayjs.extend(timezone);
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { TimeClock } from "@mui/x-date-pickers/TimeClock";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,31 +23,58 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { TimePicker } from "antd";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/Environment/urls";
 
 export default function Dates() {
-  const format = "HH:mm";
-
   const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
-  const [selectedTime, setSelectedTime] = React.useState<dayjs.Dayjs>(
-    dayjs("08:00", "HH:mm")
+  const [selectedTime, setSelectedTime] = React.useState<Dayjs>(
+    dayjs().hour(8).minute(0)
   );
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const handleBooking = async () => {
+  const [restrictedSlots, setRestrictedSlots] = useState<
+    Array<{ date: string; hours: number[] }>
+  >([
+    {
+      date: "2025-06-14",
+      hours: [9, 12, 13, 14],
+    },
+  ]);
+
+  useEffect(() => {
+    const fetchRestrictedSlots = async () => {
+      try {
+        const response = await fetch("/api/restricted-slots"); // replace with your endpoint
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setRestrictedSlots(data);
+        } else {
+          console.error("Unexpected data format:", data);
+        }
+      } catch (error) {
+        console.error("Error fetching restricted slots:", error);
+      }
+    };
+
+    fetchRestrictedSlots();
+  }, []);
+
+  async function handleBooking() {
     const safeData = {
       amount: 100,
       currency: "MXN",
       status: "pending",
       phone: phone,
       email: email,
-      selected_day: date,
-      selected_time: selectedTime,
+      selected_day: date!.format('YYYY-MM-DD'),
+      selected_time: selectedTime.format("hh:mm A"),
     };
+        console.log(safeData)
+
     const response = await fetch(`${BASE_URL}/checkout`, {
       method: "POST",
       headers: {
@@ -57,7 +85,7 @@ export default function Dates() {
     const data = await response.json();
     // console.log(data.url)
     window.open(data.url, "_blank");
-  };
+  }
 
   return (
     <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
@@ -98,7 +126,7 @@ export default function Dates() {
           />
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-[#ffffff47] border border-white m-5">
+        <AlertDialogContent className="bg-[#ffffff81] border border-white m-5">
           <AlertDialogHeader className="pb-10 md:pb-3">
             <AlertDialogTitle className="text-white font-careny text-center text-3xl ">
               <p className="animate-flipInY transition-all duration-1000">
@@ -132,24 +160,44 @@ export default function Dates() {
                   required
                 />
               </div>
-              <TimePicker
-                className="w-20"
-                defaultValue={dayjs("8:00", format)}
-                format={format}
-                size="large"
-                minuteStep={30}
-                value={selectedTime}
-                onChange={(time) => setSelectedTime(time)}
-                disabledTime={() => ({
-                  disabledHours: () => [
-                    ...Array(8).keys(),
-                    ...Array(16)
-                      .keys()
-                      .map((x) => x + 20),
-                  ],
-                  disabledMinutes: () => [],
-                })}
-              />
+              <div className=" bg-white/80 rounded-lg">
+                <p className="text-xl md:text-4xl font-ephesis tracking-widest text-center text-black pt-4">
+                  Horario
+                </p>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <TimeClock
+                  value={selectedTime}
+                  onChange={(newTime) => {
+                    if (newTime) {
+                    const formattedTime = newTime.format('HH:00');
+                    setSelectedTime(dayjs(formattedTime, 'HH:mm'));
+                    }
+                  }}
+                  minTime={dayjs().hour(7).minute(0)}
+                  maxTime={dayjs().hour(18).minute(0)}
+                  ampm={false} 
+                  views={["hours"]}
+                  shouldDisableTime={(time) => {
+                    if (!date) return false;
+
+                    const formattedSelectedDate =
+                    dayjs(date).format("YYYY-MM-DD");
+
+                    const dateRestriction = restrictedSlots.find(
+                    (slot) => slot.date === formattedSelectedDate
+                    );
+
+                    return (
+                    dateRestriction?.hours.includes(time.hour()) ?? false
+                    );
+                  }}
+                  />
+                </LocalizationProvider>
+                <p className="text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
+                  Seleccionado:{" "}
+                  {selectedTime.format("hh:mm A")}
+                </p>
+              </div>
             </div>
           </AlertDialogHeader>
           <AlertDialogFooter className="font-poppins text-3xl">
