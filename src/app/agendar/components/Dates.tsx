@@ -31,13 +31,14 @@ export default function Dates() {
   const format = "HH:mm";
 
   const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
-  const [selectedTime, setSelectedTime] = React.useState<dayjs.Dayjs>(dayjs("08:00", "HH:mm"));
+  const [selectedTime, setSelectedTime] = React.useState<dayjs.Dayjs>(
+    dayjs("08:00", "HH:mm")
+  );
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
   const handleBooking = async () => {
-    const safeData = 
-    {
+    const safeData = {
       amount: 100,
       currency: "MXN",
       status: "pending",
@@ -47,11 +48,11 @@ export default function Dates() {
       selected_time: selectedTime,
     };
     const response = await fetch(`${BASE_URL}/checkout`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(safeData)
+      body: JSON.stringify(safeData),
     });
     const data = await response.json();
     // console.log(data.url)
@@ -110,44 +111,44 @@ export default function Dates() {
 
             <div className="flex flex-col justify-center items-center gap-3">
               <div className="text-white grid w-full max-w-sm items-center gap-3">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
               <div className="text-white grid w-full max-w-sm items-center gap-3">
-              <Label htmlFor="telefono">Telefono</Label>
-              <Input
-                type="tel"
-                id="telefono"
-                placeholder="Telefono"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
+                <Label htmlFor="telefono">Telefono</Label>
+                <Input
+                  type="tel"
+                  id="telefono"
+                  placeholder="Telefono"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
               </div>
               <TimePicker
-              className="w-20"
-              defaultValue={dayjs("8:00", format)}
-              format={format}
-              size="large"
-              minuteStep={30}
-              value={selectedTime}
-              onChange={(time) => setSelectedTime(time)}
-              disabledTime={() => ({
-                disabledHours: () => [
-                ...Array(8).keys(),
-                ...Array(16)
-                  .keys()
-                  .map((x) => x + 20),
-                ],
-                disabledMinutes: () => [],
-              })}
+                className="w-20"
+                defaultValue={dayjs("8:00", format)}
+                format={format}
+                size="large"
+                minuteStep={30}
+                value={selectedTime}
+                onChange={(time) => setSelectedTime(time)}
+                disabledTime={() => ({
+                  disabledHours: () => [
+                    ...Array(8).keys(),
+                    ...Array(16)
+                      .keys()
+                      .map((x) => x + 20),
+                  ],
+                  disabledMinutes: () => [],
+                })}
               />
             </div>
           </AlertDialogHeader>
