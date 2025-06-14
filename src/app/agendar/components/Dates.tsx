@@ -37,21 +37,21 @@ export default function Dates() {
 
   const [restrictedSlots, setRestrictedSlots] = useState<
     Array<{ date: string; hours: number[] }>
-  >([
-    {
-      date: "2025-06-14",
-      hours: [9, 12, 13, 14],
-    },
-  ]);
+  >([]);
 
   useEffect(() => {
     const fetchRestrictedSlots = async () => {
       try {
-        const response = await fetch("/api/restricted-slots"); // replace with your endpoint
+        const response = await fetch(`${BASE_URL}/booked-times`);
         const data = await response.json();
 
-        if (Array.isArray(data)) {
-          setRestrictedSlots(data);
+        if (data && typeof data.data === "object") {
+          const formatted = Object.entries(data.data).map(([date, hours]) => ({
+            date,
+            hours: hours as number[],
+          }));
+
+          setRestrictedSlots(formatted);
         } else {
           console.error("Unexpected data format:", data);
         }
@@ -70,10 +70,10 @@ export default function Dates() {
       status: "pending",
       phone: phone,
       email: email,
-      selected_day: date!.format('YYYY-MM-DD'),
+      selected_day: date!.format("YYYY-MM-DD"),
       selected_time: selectedTime.format("hh:mm A"),
     };
-        console.log(safeData)
+    console.log(safeData);
 
     const response = await fetch(`${BASE_URL}/checkout`, {
       method: "POST",
@@ -83,7 +83,7 @@ export default function Dates() {
       body: JSON.stringify(safeData),
     });
     const data = await response.json();
-    // console.log(data.url)
+
     window.open(data.url, "_blank");
   }
 
@@ -166,36 +166,35 @@ export default function Dates() {
                 </p>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <TimeClock
-                  value={selectedTime}
-                  onChange={(newTime) => {
-                    if (newTime) {
-                    const formattedTime = newTime.format('HH:00');
-                    setSelectedTime(dayjs(formattedTime, 'HH:mm'));
-                    }
-                  }}
-                  minTime={dayjs().hour(7).minute(0)}
-                  maxTime={dayjs().hour(18).minute(0)}
-                  ampm={false} 
-                  views={["hours"]}
-                  shouldDisableTime={(time) => {
-                    if (!date) return false;
+                    value={selectedTime}
+                    onChange={(newTime) => {
+                      if (newTime) {
+                        const formattedTime = newTime.format("HH:00");
+                        setSelectedTime(dayjs(formattedTime, "HH:mm"));
+                      }
+                    }}
+                    minTime={dayjs().hour(7).minute(0)}
+                    maxTime={dayjs().hour(18).minute(0)}
+                    ampm={false}
+                    views={["hours"]}
+                    shouldDisableTime={(time) => {
+                      if (!date) return false;
 
-                    const formattedSelectedDate =
-                    dayjs(date).format("YYYY-MM-DD");
+                      const formattedSelectedDate =
+                        dayjs(date).format("YYYY-MM-DD");
 
-                    const dateRestriction = restrictedSlots.find(
-                    (slot) => slot.date === formattedSelectedDate
-                    );
+                      const dateRestriction = restrictedSlots.find(
+                        (slot) => slot.date === formattedSelectedDate
+                      );
 
-                    return (
-                    dateRestriction?.hours.includes(time.hour()) ?? false
-                    );
-                  }}
+                      return (
+                        dateRestriction?.hours.includes(time.hour()) ?? false
+                      );
+                    }}
                   />
                 </LocalizationProvider>
                 <p className="text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
-                  Seleccionado:{" "}
-                  {selectedTime.format("hh:mm A")}
+                  Seleccionado: {selectedTime.format("hh:mm A")}
                 </p>
               </div>
             </div>
