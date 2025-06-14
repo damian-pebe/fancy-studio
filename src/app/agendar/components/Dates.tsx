@@ -23,18 +23,28 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { BASE_URL } from "@/Environment/urls";
+
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
 export default function Dates() {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
   const [selectedTime, setSelectedTime] = React.useState<Dayjs>(
     dayjs().hour(8).minute(0)
   );
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-
+  const [showWarning, setShowWarning] = useState(true);
   const [restrictedSlots, setRestrictedSlots] = useState<
     Array<{ date: string; hours: number[] }>
   >([]);
@@ -63,17 +73,39 @@ export default function Dates() {
     fetchRestrictedSlots();
   }, []);
 
-  async function handleBooking() {
+  type BookingFormValues = z.infer<typeof BookingSchema>;
+
+  const BookingSchema = z.object({
+    email: z.string().email({ message: "Correo inválido" }),
+    phone: z
+      .string()
+      .min(10, { message: "Teléfono debe tener al menos 10 dígitos" })
+      .max(15, { message: "Teléfono demasiado largo" }),
+  });
+
+  const form = useForm<BookingFormValues>({
+    resolver: zodResolver(BookingSchema),
+    defaultValues: {
+      email: "",
+      phone: "",
+    },
+  });
+
+  const handleBooking = async (data: z.infer<typeof BookingSchema>) => {
+    if (!selectedTime) {
+      setShowWarning(true);
+      return;
+    }
+
     const safeData = {
       amount: 100,
       currency: "MXN",
       status: "pending",
-      phone: phone,
-      email: email,
+      phone: data.phone,
+      email: data.email,
       selected_day: date!.format("YYYY-MM-DD"),
       selected_time: selectedTime.format("hh:mm A"),
     };
-    console.log(safeData);
 
     const response = await fetch(`${BASE_URL}/checkout`, {
       method: "POST",
@@ -82,10 +114,10 @@ export default function Dates() {
       },
       body: JSON.stringify(safeData),
     });
-    const data = await response.json();
 
-    window.open(data.url, "_blank");
-  }
+    const resData = await response.json();
+    window.open(resData.url, "_blank");
+  };
 
   return (
     <div className="w-full h-full flex flex-col mt-20 md:mt-0 md:justify-center flex-wrap items-center gap-2 @md:flex-row ">
@@ -126,84 +158,104 @@ export default function Dates() {
           />
         </AlertDialogTrigger>
 
-        <AlertDialogContent className="bg-[#ffffff81] border border-white m-5">
+        <AlertDialogContent className="bg-[#ffffff81] border border-white">
           <AlertDialogHeader className="pb-10 md:pb-3">
-            <AlertDialogTitle className="text-white font-careny text-center text-3xl ">
-              <p className="animate-flipInY transition-all duration-1000">
+            <AlertDialogTitle className="text-white font-careny text-center  ">
+              <p className="text-lg md:text-3xl animate-flipInY transition-all duration-1000">
                 SELECCIONA LA HORA DE TU CITA <br />
               </p>
-              <p className="font-birthstone tracking-widest font-light text-2xl animate-rotateIn transition-all duration-1000">
+              <p className="md:block hidden font-birthstone tracking-widest font-light text-base md:text-2xl animate-rotateIn transition-all duration-1000">
                 Para el dia {date!.format("DD-MM-YYYY")}
               </p>
             </AlertDialogTitle>
 
-            <div className="flex flex-col justify-center items-center gap-3">
-              <div className="text-white grid w-full max-w-sm items-center gap-3">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleBooking)}
+                className="space-y-2 text-xs"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem className="px-10">
+                      <FormControl>
+                        <Input placeholder="Email" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div className="text-white grid w-full max-w-sm items-center gap-3">
-                <Label htmlFor="telefono">Telefono</Label>
-                <Input
-                  type="tel"
-                  id="telefono"
-                  placeholder="Telefono"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
+
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem className="px-10">
+                      <FormControl>
+                        <Input placeholder="Teléfono" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div className=" bg-white/80 rounded-lg">
-                <p className="text-xl md:text-4xl font-ephesis tracking-widest text-center text-black pt-4">
-                  Horario
-                </p>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <TimeClock
-                    value={selectedTime}
-                    onChange={(newTime) => {
-                      if (newTime) {
-                        const formattedTime = newTime.format("HH:00");
-                        setSelectedTime(dayjs(formattedTime, "HH:mm"));
-                      }
-                    }}
-                    minTime={dayjs().hour(7).minute(0)}
-                    maxTime={dayjs().hour(18).minute(0)}
-                    ampm={false}
-                    views={["hours"]}
-                    shouldDisableTime={(time) => {
-                      if (!date) return false;
 
-                      const formattedSelectedDate =
-                        dayjs(date).format("YYYY-MM-DD");
+                <div className=" bg-white/80 rounded-lg">
+                  <p className="hidden md:block text-xl md:text-4xl font-ephesis tracking-widest text-center text-black pt-4">
+                    Horario
+                  </p>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimeClock
+                     sx={{ transform: "scale(1)", transformOrigin: "top center" }}
+                      value={selectedTime}
+                      onChange={(newTime) => {
+                        if (newTime) {
+                          const formattedTime = newTime.format("HH:00");
+                          setSelectedTime(dayjs(formattedTime, "HH:mm"));
+                          setShowWarning(false);
+                        }
+                      }}
+                      minTime={dayjs().hour(7).minute(0)}
+                      maxTime={dayjs().hour(18).minute(0)}
+                      ampm={false}
+                      views={["hours"]}
+                      shouldDisableTime={(time) => {
+                        if (!date) return false;
 
-                      const dateRestriction = restrictedSlots.find(
-                        (slot) => slot.date === formattedSelectedDate
-                      );
+                        const formattedSelectedDate =
+                          dayjs(date).format("YYYY-MM-DD");
 
-                      return (
-                        dateRestriction?.hours.includes(time.hour()) ?? false
-                      );
-                    }}
-                  />
-                </LocalizationProvider>
-                <p className="text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
-                  Seleccionado: {selectedTime.format("hh:mm A")}
-                </p>
-              </div>
-            </div>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="font-poppins text-3xl">
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleBooking}>
+                        const dateRestriction = restrictedSlots.find(
+                          (slot) => slot.date === formattedSelectedDate
+                        );
+
+                        return (
+                          dateRestriction?.hours.includes(time.hour()) ?? false
+                        );
+                      }}
+                    />
+                  </LocalizationProvider>
+                  {showWarning && (
+                    <p className="text-red-500 text-sm mt-2 text-center">
+                      Por favor selecciona una hora.
+                    </p>
+                  )}
+                  <p className="hidden md:block text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
+                    Seleccionado: {selectedTime.format("hh:mm A")}
+                  </p>
+                  <p className="md:hidden block text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
+                    {selectedTime.format("hh:mm A")}
+                  </p>
+                </div>
+                 <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={form.handleSubmit(handleBooking)}>
               Agendar Cita
             </AlertDialogAction>
+              </form>
+            </Form>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="font-poppins text-3xl">
+           
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
