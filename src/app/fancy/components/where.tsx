@@ -1,4 +1,6 @@
+"use client";
 import { Badge } from "@/components/ui/badge";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 
 export default function Lugar() {
@@ -27,24 +29,40 @@ export default function Lugar() {
         <div className="flex flex-col items-center">
           <div className="relative w-[500px] h-[500px] mb-6 hover:translate-y-1 transition-all duration-700">
             <Image
-              src={"/images/eyelashLift.jpg"}
+              src={"/images/location.jpg"}
               alt={"Fachada del local"}
               fill
               className="object-cover rounded-sm hover:cursor-pointer"
             />
           </div>
           <h3 className="text-2xl font-medium mb-2">Nuestra ubicación</h3>
+          <button
+            onClick={() =>
+              window.open("https://maps.app.goo.gl/Y3bjCwJCmoP62J5WA", "_blank")
+            }
+            className="inline-flex items-center gap-2 border border-black px-5 py-2 text-sm rounded-full hover:bg-black hover:text-white hover:-translate-y-1 transition-all duration-700"
+          >
+            Ver Ubicacion <ArrowUpRight size={16} />
+          </button>
         </div>
         <div className="flex flex-col items-center">
           <div className="relative w-[500px] h-[500px] mb-6 hover:translate-y-1 transition-all duration-700">
             <Image
-              src={"/images/eyelashLift.jpg"}
+              src={"/images/inside.jpg"}
               alt={"Interior del local"}
               fill
               className="object-cover rounded-sm hover:cursor-pointer"
             />
           </div>
           <h3 className="text-2xl font-medium mb-2">Nuestro espacio</h3>
+          <button
+            onClick={() =>
+              window.open("https://maps.app.goo.gl/Y3bjCwJCmoP62J5WA", "_blank")
+            }
+            className="inline-flex items-center gap-2 border border-black px-5 py-2 text-sm rounded-full hover:bg-black hover:text-white hover:-translate-y-1 transition-all duration-700"
+          >
+            Ver Galeria <ArrowUpRight size={16} />
+          </button>
         </div>
       </div>
     </section>

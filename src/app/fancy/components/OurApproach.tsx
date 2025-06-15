@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function OurApproach() {
   return (
-    <section className="px-6 pt-16 md:py-16 bg-white flex flex-col items-center font-sans">
+    <section className="px-6 pt-16 md:pt-16 bg-white flex flex-col items-center font-sans">
       <Badge>
         <div>
           <div className="flex items-center self-start">
@@ -17,10 +17,9 @@ export default function OurApproach() {
 
       <div className="max-w-4xl mt-10 text-right">
         <p className="text-lg text-gray-900 leading-relaxed">
-          We are a globally recognized boutique design agency, crafting
-          strategic, high-quality solutions that amplify brand values. Our
-          agile, independent team blends strategy, design, and innovation to
-          deliver impactful results.
+          Impulsamos la belleza y confianza de cada persona con técnicas de
+          vanguardia como el microblading, microshading y más, ofreciendo una
+          experiencia única, profesional y personalizada.
         </p>
       </div>
 
@@ -34,7 +33,9 @@ export default function OurApproach() {
               className="object-cover rounded-sm hover:cursor-pointer"
             />
           </div>
-          <h3 className="text-2xl font-medium mb-2">microshading</h3>
+          <h3 className="text-2xl font-medium mb-2 border-b border-black">
+            microshading
+          </h3>
         </div>
         <div className="flex flex-col items-center">
           <div className="relative w-[500px] h-[500px] mb-6 hover:translate-y-1 transition-all duration-700">
@@ -45,7 +46,9 @@ export default function OurApproach() {
               className="object-cover rounded-sm hover:cursor-pointer"
             />
           </div>
-          <h3 className="text-2xl font-medium mb-2">microblading</h3>
+          <h3 className="text-2xl font-medium mb-2 border-b border-black">
+            microblading
+          </h3>
         </div>
       </div>
     </section>

@@ -39,10 +39,9 @@ import {
 
 export default function Dates() {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs().add(1, "day"));
-  const [selectedTime, setSelectedTime] = React.useState<Dayjs>(
-    dayjs().hour(8).minute(0)
-  );
-  const [showWarning, setShowWarning] = useState(true);
+  const [selectedTime, setSelectedTime] = React.useState<Dayjs | null>(null);
+
+  const [showWarning, setShowWarning] = useState(false);
   const [restrictedSlots, setRestrictedSlots] = useState<
     Array<{ date: string; hours: number[] }>
   >([]);
@@ -204,7 +203,10 @@ export default function Dates() {
                   </p>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <TimeClock
-                     sx={{ transform: "scale(1)", transformOrigin: "top center" }}
+                      sx={{
+                        transform: "scale(1)",
+                        transformOrigin: "top center",
+                      }}
                       value={selectedTime}
                       onChange={(newTime) => {
                         if (newTime) {
@@ -238,22 +240,19 @@ export default function Dates() {
                       Por favor selecciona una hora.
                     </p>
                   )}
-                  <p className="hidden md:block text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
-                    Seleccionado: {selectedTime.format("hh:mm A")}
-                  </p>
-                  <p className="md:hidden block text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
-                    {selectedTime.format("hh:mm A")}
+                  <p className=" text-xs md:text-lg font-poppins tracking-widest text-center w-full text-black pt-4">
+                    Seleccionado:{" "}
+                    {selectedTime ? selectedTime.format("hh:mm A") : ""}
                   </p>
                 </div>
-                 <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={form.handleSubmit(handleBooking)}>
-              Agendar Cita
-            </AlertDialogAction>
               </form>
             </Form>
           </AlertDialogHeader>
           <AlertDialogFooter className="font-poppins text-3xl">
-           
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={form.handleSubmit(handleBooking)}>
+              Agendar Cita
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
